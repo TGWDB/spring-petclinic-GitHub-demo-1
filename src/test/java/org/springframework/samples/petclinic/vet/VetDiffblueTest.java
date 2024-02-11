@@ -8,160 +8,162 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 class VetDiffblueTest {
-  /**
-   * Method under test: {@link Vet#getSpecialtiesInternal()}
-   */
-  @Test
-  void testGetSpecialtiesInternal() {
-    // Arrange
-    Vet vet = new Vet();
 
-    // Act
-    Set<Specialty> actualSpecialtiesInternal = vet.getSpecialtiesInternal();
+	/**
+	 * Method under test: {@link Vet#getSpecialtiesInternal()}
+	 */
+	@Test
+	void testGetSpecialtiesInternal() {
+		// Arrange
+		Vet vet = new Vet();
 
-    // Assert
-    assertEquals(0, vet.getNrOfSpecialties());
-    assertTrue(actualSpecialtiesInternal.isEmpty());
-  }
+		// Act
+		Set<Specialty> actualSpecialtiesInternal = vet.getSpecialtiesInternal();
 
-  /**
-   * Method under test: {@link Vet#getSpecialtiesInternal()}
-   */
-  @Test
-  void testGetSpecialtiesInternal2() {
-    // Arrange
-    Vet vet = new Vet();
-    vet.setFirstName("Jane");
-    vet.setId(1);
-    vet.setLastName("Doe");
-    HashSet<Specialty> specialties = new HashSet<>();
-    vet.setSpecialtiesInternal(specialties);
+		// Assert
+		assertEquals(0, vet.getNrOfSpecialties());
+		assertTrue(actualSpecialtiesInternal.isEmpty());
+	}
 
-    // Act
-    Set<Specialty> actualSpecialtiesInternal = vet.getSpecialtiesInternal();
+	/**
+	 * Method under test: {@link Vet#getSpecialtiesInternal()}
+	 */
+	@Test
+	void testGetSpecialtiesInternal2() {
+		// Arrange
+		Vet vet = new Vet();
+		vet.setFirstName("Jane");
+		vet.setId(1);
+		vet.setLastName("Doe");
+		HashSet<Specialty> specialties = new HashSet<>();
+		vet.setSpecialtiesInternal(specialties);
 
-    // Assert
-    assertTrue(actualSpecialtiesInternal.isEmpty());
-    assertSame(specialties, actualSpecialtiesInternal);
-  }
+		// Act
+		Set<Specialty> actualSpecialtiesInternal = vet.getSpecialtiesInternal();
 
-  /**
-   * Method under test: {@link Vet#getSpecialties()}
-   */
-  @Test
-  void testGetSpecialties() {
-    // Arrange
-    Vet vet = new Vet();
+		// Assert
+		assertTrue(actualSpecialtiesInternal.isEmpty());
+		assertSame(specialties, actualSpecialtiesInternal);
+	}
 
-    // Act and Assert
-    assertTrue(vet.getSpecialties().isEmpty());
-    assertTrue(vet.getSpecialtiesInternal().isEmpty());
-  }
+	/**
+	 * Method under test: {@link Vet#getSpecialties()}
+	 */
+	@Test
+	void testGetSpecialties() {
+		// Arrange
+		Vet vet = new Vet();
 
-  /**
-   * Method under test: {@link Vet#getSpecialties()}
-   */
-  @Test
-  void testGetSpecialties2() {
-    // Arrange
-    Vet vet = new Vet();
-    vet.setFirstName("Jane");
-    vet.setId(1);
-    vet.setLastName("Doe");
-    vet.setSpecialtiesInternal(new HashSet<>());
+		// Act and Assert
+		assertTrue(vet.getSpecialties().isEmpty());
+		assertTrue(vet.getSpecialtiesInternal().isEmpty());
+	}
 
-    // Act and Assert
-    assertTrue(vet.getSpecialties().isEmpty());
-  }
+	/**
+	 * Method under test: {@link Vet#getSpecialties()}
+	 */
+	@Test
+	void testGetSpecialties2() {
+		// Arrange
+		Vet vet = new Vet();
+		vet.setFirstName("Jane");
+		vet.setId(1);
+		vet.setLastName("Doe");
+		vet.setSpecialtiesInternal(new HashSet<>());
 
-  /**
-   * Method under test: {@link Vet#getNrOfSpecialties()}
-   */
-  @Test
-  void testGetNrOfSpecialties() {
-    // Arrange
-    Vet vet = new Vet();
+		// Act and Assert
+		assertTrue(vet.getSpecialties().isEmpty());
+	}
 
-    // Act and Assert
-    assertEquals(0, vet.getNrOfSpecialties());
-    assertTrue(vet.getSpecialtiesInternal().isEmpty());
-  }
+	/**
+	 * Method under test: {@link Vet#getNrOfSpecialties()}
+	 */
+	@Test
+	void testGetNrOfSpecialties() {
+		// Arrange
+		Vet vet = new Vet();
 
-  /**
-   * Method under test: {@link Vet#getNrOfSpecialties()}
-   */
-  @Test
-  void testGetNrOfSpecialties2() {
-    // Arrange
-    Vet vet = new Vet();
-    vet.setFirstName("Jane");
-    vet.setId(1);
-    vet.setLastName("Doe");
-    vet.setSpecialtiesInternal(new HashSet<>());
+		// Act and Assert
+		assertEquals(0, vet.getNrOfSpecialties());
+		assertTrue(vet.getSpecialtiesInternal().isEmpty());
+	}
 
-    // Act and Assert
-    assertEquals(0, vet.getNrOfSpecialties());
-  }
+	/**
+	 * Method under test: {@link Vet#getNrOfSpecialties()}
+	 */
+	@Test
+	void testGetNrOfSpecialties2() {
+		// Arrange
+		Vet vet = new Vet();
+		vet.setFirstName("Jane");
+		vet.setId(1);
+		vet.setLastName("Doe");
+		vet.setSpecialtiesInternal(new HashSet<>());
 
-  /**
-   * Method under test: {@link Vet#addSpecialty(Specialty)}
-   */
-  @Test
-  void testAddSpecialty() {
-    // Arrange
-    Vet vet = new Vet();
+		// Act and Assert
+		assertEquals(0, vet.getNrOfSpecialties());
+	}
 
-    Specialty specialty = new Specialty();
-    specialty.setId(1);
-    specialty.setName("Canines");
+	/**
+	 * Method under test: {@link Vet#addSpecialty(Specialty)}
+	 */
+	@Test
+	void testAddSpecialty() {
+		// Arrange
+		Vet vet = new Vet();
 
-    // Act
-    vet.addSpecialty(specialty);
+		Specialty specialty = new Specialty();
+		specialty.setId(1);
+		specialty.setName("Canines");
 
-    // Assert
-    assertEquals(1, vet.getSpecialties().size());
-    assertEquals(1, vet.getSpecialtiesInternal().size());
-  }
+		// Act
+		vet.addSpecialty(specialty);
 
-  /**
-   * Method under test: {@link Vet#addSpecialty(Specialty)}
-   */
-  @Test
-  void testAddSpecialty2() {
-    // Arrange
-    Vet vet = new Vet();
-    vet.setFirstName("Jane");
-    vet.setId(1);
-    vet.setLastName("Doe");
-    vet.setSpecialtiesInternal(new HashSet<>());
+		// Assert
+		assertEquals(1, vet.getSpecialties().size());
+		assertEquals(1, vet.getSpecialtiesInternal().size());
+	}
 
-    Specialty specialty = new Specialty();
-    specialty.setId(1);
-    specialty.setName("Canines");
+	/**
+	 * Method under test: {@link Vet#addSpecialty(Specialty)}
+	 */
+	@Test
+	void testAddSpecialty2() {
+		// Arrange
+		Vet vet = new Vet();
+		vet.setFirstName("Jane");
+		vet.setId(1);
+		vet.setLastName("Doe");
+		vet.setSpecialtiesInternal(new HashSet<>());
 
-    // Act
-    vet.addSpecialty(specialty);
+		Specialty specialty = new Specialty();
+		specialty.setId(1);
+		specialty.setName("Canines");
 
-    // Assert
-    assertEquals(1, vet.getSpecialtiesInternal().size());
-  }
+		// Act
+		vet.addSpecialty(specialty);
 
-  /**
-   * Methods under test:
-   * 
-   * <ul>
-   *   <li>default or parameterless constructor of {@link Vet}
-   *   <li>{@link Vet#setSpecialtiesInternal(Set)}
-   * </ul>
-   */
-  @Test
-  void testGettersAndSetters() {
-    // Arrange and Act
-    Vet actualVet = new Vet();
-    HashSet<Specialty> specialties = new HashSet<>();
-    actualVet.setSpecialtiesInternal(specialties);
+		// Assert
+		assertEquals(1, vet.getSpecialtiesInternal().size());
+	}
 
-    // Assert
-    assertSame(specialties, actualVet.getSpecialtiesInternal());
-  }
+	/**
+	 * Methods under test:
+	 *
+	 * <ul>
+	 * <li>default or parameterless constructor of {@link Vet}
+	 * <li>{@link Vet#setSpecialtiesInternal(Set)}
+	 * </ul>
+	 */
+	@Test
+	void testGettersAndSetters() {
+		// Arrange and Act
+		Vet actualVet = new Vet();
+		HashSet<Specialty> specialties = new HashSet<>();
+		actualVet.setSpecialtiesInternal(specialties);
+
+		// Assert
+		assertSame(specialties, actualVet.getSpecialtiesInternal());
+	}
+
 }

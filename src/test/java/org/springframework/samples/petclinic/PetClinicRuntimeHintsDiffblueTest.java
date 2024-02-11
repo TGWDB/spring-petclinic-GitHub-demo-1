@@ -15,25 +15,28 @@ import org.mockito.Mockito;
 import org.springframework.aot.hint.RuntimeHints;
 
 class PetClinicRuntimeHintsDiffblueTest {
-  /**
-   * Method under test:
-   * {@link PetClinicRuntimeHints#registerHints(RuntimeHints, ClassLoader)}
-   */
-  @Test
-  void testRegisterHints() throws MalformedURLException {
-    // Arrange
-    PetClinicRuntimeHints petClinicRuntimeHints = new PetClinicRuntimeHints();
-    RuntimeHints hints = new RuntimeHints();
-    URLStreamHandlerFactory urlStreamHandlerFactory = mock(URLStreamHandlerFactory.class);
-    when(urlStreamHandlerFactory.createURLStreamHandler(Mockito.<String>any()))
-        .thenReturn(new ClasspathURLStreamHandler());
 
-    // Act
-    petClinicRuntimeHints.registerHints(hints,
-        new URLClassLoader(new URL[]{Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toUri().toURL()},
-            new MLet(), urlStreamHandlerFactory));
+	/**
+	 * Method under test:
+	 * {@link PetClinicRuntimeHints#registerHints(RuntimeHints, ClassLoader)}
+	 */
+	@Test
+	void testRegisterHints() throws MalformedURLException {
+		// Arrange
+		PetClinicRuntimeHints petClinicRuntimeHints = new PetClinicRuntimeHints();
+		RuntimeHints hints = new RuntimeHints();
+		URLStreamHandlerFactory urlStreamHandlerFactory = mock(URLStreamHandlerFactory.class);
+		when(urlStreamHandlerFactory.createURLStreamHandler(Mockito.<String>any()))
+			.thenReturn(new ClasspathURLStreamHandler());
 
-    // Assert
-    verify(urlStreamHandlerFactory).createURLStreamHandler(Mockito.<String>any());
-  }
+		// Act
+		petClinicRuntimeHints.registerHints(hints,
+				new URLClassLoader(
+						new URL[] { Paths.get(System.getProperty("java.io.tmpdir"), "test.txt").toUri().toURL() },
+						new MLet(), urlStreamHandlerFactory));
+
+		// Assert
+		verify(urlStreamHandlerFactory).createURLStreamHandler(Mockito.<String>any());
+	}
+
 }

@@ -15,186 +15,191 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
 class PetValidatorDiffblueTest {
-  /**
-   * Method under test: {@link PetValidator#validate(Object, Errors)}
-   */
-  @Test
-  void testValidate() {
-    // Arrange
-    PetValidator petValidator = new PetValidator();
 
-    PetType type = new PetType();
-    type.setId(1);
-    type.setName("Dog");
+	/**
+	 * Method under test: {@link PetValidator#validate(Object, Errors)}
+	 */
+	@Test
+	void testValidate() {
+		// Arrange
+		PetValidator petValidator = new PetValidator();
 
-    Pet pet = new Pet();
-    pet.setBirthDate(LocalDate.of(1970, 1, 1));
-    pet.setId(1);
-    pet.setName("Bella");
-    pet.setType(type);
+		PetType type = new PetType();
+		type.setId(1);
+		type.setName("Dog");
 
-    // Act
-    petValidator.validate(pet, new BindException(pet, "org.springframework.samples.petclinic.owner.Pet"));
+		Pet pet = new Pet();
+		pet.setBirthDate(LocalDate.of(1970, 1, 1));
+		pet.setId(1);
+		pet.setName("Bella");
+		pet.setType(type);
 
-    // Assert that nothing has changed
-    assertEquals("1970-01-01", pet.getBirthDate().toString());
-    assertEquals("Bella", pet.getName());
-    assertFalse(pet.isNew());
-    assertTrue(pet.getVisits().isEmpty());
-    assertSame(type, pet.getType());
-  }
+		// Act
+		petValidator.validate(pet, new BindException(pet, "org.springframework.samples.petclinic.owner.Pet"));
 
-  /**
-   * Method under test: {@link PetValidator#validate(Object, Errors)}
-   */
-  @Test
-  void testValidate2() {
-    // Arrange
-    PetValidator petValidator = new PetValidator();
+		// Assert that nothing has changed
+		assertEquals("1970-01-01", pet.getBirthDate().toString());
+		assertEquals("Bella", pet.getName());
+		assertFalse(pet.isNew());
+		assertTrue(pet.getVisits().isEmpty());
+		assertSame(type, pet.getType());
+	}
 
-    PetType type = new PetType();
-    type.setId(1);
-    type.setName("Dog");
+	/**
+	 * Method under test: {@link PetValidator#validate(Object, Errors)}
+	 */
+	@Test
+	void testValidate2() {
+		// Arrange
+		PetValidator petValidator = new PetValidator();
 
-    Pet pet = new Pet();
-    pet.setBirthDate(null);
-    pet.setId(1);
-    pet.setName("Bella");
-    pet.setType(type);
-    BindException errors = new BindException(pet, "org.springframework.samples.petclinic.owner.Pet");
+		PetType type = new PetType();
+		type.setId(1);
+		type.setName("Dog");
 
-    // Act
-    petValidator.validate(pet, errors);
+		Pet pet = new Pet();
+		pet.setBirthDate(null);
+		pet.setId(1);
+		pet.setName("Bella");
+		pet.setType(type);
+		BindException errors = new BindException(pet, "org.springframework.samples.petclinic.owner.Pet");
 
-    // Assert
-    FieldError fieldError = errors.getFieldError();
-    assertEquals("birthDate", fieldError.getField());
-    assertEquals("org.springframework.samples.petclinic.owner.Pet", fieldError.getObjectName());
-    assertNull(fieldError.getRejectedValue());
-    assertFalse(fieldError.isBindingFailure());
-    BindingResult bindingResult = errors.getBindingResult();
-    assertTrue(bindingResult.hasErrors());
-    assertSame(errors.getPropertyEditorRegistry(), ((BeanPropertyBindingResult) bindingResult).getPropertyAccessor());
-  }
+		// Act
+		petValidator.validate(pet, errors);
 
-  /**
-   * Method under test: {@link PetValidator#validate(Object, Errors)}
-   */
-  @Test
-  void testValidate3() {
-    // Arrange
-    PetValidator petValidator = new PetValidator();
+		// Assert
+		FieldError fieldError = errors.getFieldError();
+		assertEquals("birthDate", fieldError.getField());
+		assertEquals("org.springframework.samples.petclinic.owner.Pet", fieldError.getObjectName());
+		assertNull(fieldError.getRejectedValue());
+		assertFalse(fieldError.isBindingFailure());
+		BindingResult bindingResult = errors.getBindingResult();
+		assertTrue(bindingResult.hasErrors());
+		assertSame(errors.getPropertyEditorRegistry(),
+				((BeanPropertyBindingResult) bindingResult).getPropertyAccessor());
+	}
 
-    PetType type = new PetType();
-    type.setId(1);
-    type.setName("Dog");
+	/**
+	 * Method under test: {@link PetValidator#validate(Object, Errors)}
+	 */
+	@Test
+	void testValidate3() {
+		// Arrange
+		PetValidator petValidator = new PetValidator();
 
-    Pet pet = new Pet();
-    pet.setBirthDate(LocalDate.of(1970, 1, 1));
-    pet.setId(null);
-    pet.setName("Bella");
-    pet.setType(type);
+		PetType type = new PetType();
+		type.setId(1);
+		type.setName("Dog");
 
-    // Act
-    petValidator.validate(pet, new BindException(pet, "org.springframework.samples.petclinic.owner.Pet"));
+		Pet pet = new Pet();
+		pet.setBirthDate(LocalDate.of(1970, 1, 1));
+		pet.setId(null);
+		pet.setName("Bella");
+		pet.setType(type);
 
-    // Assert that nothing has changed
-    assertEquals("1970-01-01", pet.getBirthDate().toString());
-    assertEquals("Bella", pet.getName());
-    assertTrue(pet.getVisits().isEmpty());
-    assertTrue(pet.isNew());
-    assertSame(type, pet.getType());
-  }
+		// Act
+		petValidator.validate(pet, new BindException(pet, "org.springframework.samples.petclinic.owner.Pet"));
 
-  /**
-   * Method under test: {@link PetValidator#validate(Object, Errors)}
-   */
-  @Test
-  void testValidate4() {
-    // Arrange
-    PetValidator petValidator = new PetValidator();
+		// Assert that nothing has changed
+		assertEquals("1970-01-01", pet.getBirthDate().toString());
+		assertEquals("Bella", pet.getName());
+		assertTrue(pet.getVisits().isEmpty());
+		assertTrue(pet.isNew());
+		assertSame(type, pet.getType());
+	}
 
-    PetType type = new PetType();
-    type.setId(1);
-    type.setName("Dog");
+	/**
+	 * Method under test: {@link PetValidator#validate(Object, Errors)}
+	 */
+	@Test
+	void testValidate4() {
+		// Arrange
+		PetValidator petValidator = new PetValidator();
 
-    Pet pet = new Pet();
-    pet.setBirthDate(LocalDate.of(1970, 1, 1));
-    pet.setId(1);
-    pet.setName(null);
-    pet.setType(type);
-    BindException errors = new BindException(pet, "org.springframework.samples.petclinic.owner.Pet");
+		PetType type = new PetType();
+		type.setId(1);
+		type.setName("Dog");
 
-    // Act
-    petValidator.validate(pet, errors);
+		Pet pet = new Pet();
+		pet.setBirthDate(LocalDate.of(1970, 1, 1));
+		pet.setId(1);
+		pet.setName(null);
+		pet.setType(type);
+		BindException errors = new BindException(pet, "org.springframework.samples.petclinic.owner.Pet");
 
-    // Assert
-    FieldError fieldError = errors.getFieldError();
-    assertEquals("name", fieldError.getField());
-    assertEquals("org.springframework.samples.petclinic.owner.Pet", fieldError.getObjectName());
-    assertNull(fieldError.getRejectedValue());
-    assertFalse(fieldError.isBindingFailure());
-    BindingResult bindingResult = errors.getBindingResult();
-    assertTrue(bindingResult.hasErrors());
-    assertSame(errors.getPropertyEditorRegistry(), ((BeanPropertyBindingResult) bindingResult).getPropertyAccessor());
-  }
+		// Act
+		petValidator.validate(pet, errors);
 
-  /**
-   * Method under test: {@link PetValidator#validate(Object, Errors)}
-   */
-  @Test
-  void testValidate5() {
-    // Arrange
-    PetValidator petValidator = new PetValidator();
+		// Assert
+		FieldError fieldError = errors.getFieldError();
+		assertEquals("name", fieldError.getField());
+		assertEquals("org.springframework.samples.petclinic.owner.Pet", fieldError.getObjectName());
+		assertNull(fieldError.getRejectedValue());
+		assertFalse(fieldError.isBindingFailure());
+		BindingResult bindingResult = errors.getBindingResult();
+		assertTrue(bindingResult.hasErrors());
+		assertSame(errors.getPropertyEditorRegistry(),
+				((BeanPropertyBindingResult) bindingResult).getPropertyAccessor());
+	}
 
-    PetType type = new PetType();
-    type.setId(1);
-    type.setName("Dog");
+	/**
+	 * Method under test: {@link PetValidator#validate(Object, Errors)}
+	 */
+	@Test
+	void testValidate5() {
+		// Arrange
+		PetValidator petValidator = new PetValidator();
 
-    Pet pet = new Pet();
-    pet.setBirthDate(LocalDate.of(1970, 1, 1));
-    pet.setId(1);
-    pet.setName("");
-    pet.setType(type);
-    BindException errors = new BindException(pet, "org.springframework.samples.petclinic.owner.Pet");
+		PetType type = new PetType();
+		type.setId(1);
+		type.setName("Dog");
 
-    // Act
-    petValidator.validate(pet, errors);
+		Pet pet = new Pet();
+		pet.setBirthDate(LocalDate.of(1970, 1, 1));
+		pet.setId(1);
+		pet.setName("");
+		pet.setType(type);
+		BindException errors = new BindException(pet, "org.springframework.samples.petclinic.owner.Pet");
 
-    // Assert
-    FieldError fieldError = errors.getFieldError();
-    assertEquals("", fieldError.getRejectedValue());
-    assertEquals("name", fieldError.getField());
-    assertEquals("org.springframework.samples.petclinic.owner.Pet", fieldError.getObjectName());
-    assertFalse(fieldError.isBindingFailure());
-    BindingResult bindingResult = errors.getBindingResult();
-    assertTrue(bindingResult.hasErrors());
-    assertSame(errors.getPropertyEditorRegistry(), ((BeanPropertyBindingResult) bindingResult).getPropertyAccessor());
-  }
+		// Act
+		petValidator.validate(pet, errors);
 
-  /**
-   * Method under test: {@link PetValidator#supports(Class)}
-   */
-  @Test
-  void testSupports() {
-    // Arrange
-    PetValidator petValidator = new PetValidator();
-    Class<Object> clazz = Object.class;
+		// Assert
+		FieldError fieldError = errors.getFieldError();
+		assertEquals("", fieldError.getRejectedValue());
+		assertEquals("name", fieldError.getField());
+		assertEquals("org.springframework.samples.petclinic.owner.Pet", fieldError.getObjectName());
+		assertFalse(fieldError.isBindingFailure());
+		BindingResult bindingResult = errors.getBindingResult();
+		assertTrue(bindingResult.hasErrors());
+		assertSame(errors.getPropertyEditorRegistry(),
+				((BeanPropertyBindingResult) bindingResult).getPropertyAccessor());
+	}
 
-    // Act and Assert
-    assertFalse(petValidator.supports(clazz));
-  }
+	/**
+	 * Method under test: {@link PetValidator#supports(Class)}
+	 */
+	@Test
+	void testSupports() {
+		// Arrange
+		PetValidator petValidator = new PetValidator();
+		Class<Object> clazz = Object.class;
 
-  /**
-   * Method under test: {@link PetValidator#supports(Class)}
-   */
-  @Test
-  void testSupports2() {
-    // Arrange
-    PetValidator petValidator = new PetValidator();
-    Class<Pet> clazz = Pet.class;
+		// Act and Assert
+		assertFalse(petValidator.supports(clazz));
+	}
 
-    // Act and Assert
-    assertTrue(petValidator.supports(clazz));
-  }
+	/**
+	 * Method under test: {@link PetValidator#supports(Class)}
+	 */
+	@Test
+	void testSupports2() {
+		// Arrange
+		PetValidator petValidator = new PetValidator();
+		Class<Pet> clazz = Pet.class;
+
+		// Act and Assert
+		assertTrue(petValidator.supports(clazz));
+	}
+
 }

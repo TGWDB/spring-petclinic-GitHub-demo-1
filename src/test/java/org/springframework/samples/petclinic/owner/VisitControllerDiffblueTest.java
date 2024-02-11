@@ -23,112 +23,115 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-@ContextConfiguration(classes = {VisitController.class})
+@ContextConfiguration(classes = { VisitController.class })
 @ExtendWith(SpringExtension.class)
 class VisitControllerDiffblueTest {
-  @MockBean
-  private OwnerRepository ownerRepository;
 
-  @Autowired
-  private VisitController visitController;
-  /**
-   * Method under test: {@link VisitController#loadPetWithVisit(int, int, Map)}
-   */
-  @Test
-  void testLoadPetWithVisit() {
-    // Arrange
-    PetType type = new PetType();
-    type.setId(1);
-    type.setName("Dog");
+	@MockBean
+	private OwnerRepository ownerRepository;
 
-    Pet pet = new Pet();
-    pet.setBirthDate(LocalDate.of(1970, 1, 1));
-    pet.setId(1);
-    pet.setName("Bella");
-    pet.setType(type);
-    Owner owner = mock(Owner.class);
-    when(owner.getPet(Mockito.<Integer>any())).thenReturn(pet);
-    doNothing().when(owner).setId(Mockito.<Integer>any());
-    doNothing().when(owner).setFirstName(Mockito.<String>any());
-    doNothing().when(owner).setLastName(Mockito.<String>any());
-    doNothing().when(owner).setAddress(Mockito.<String>any());
-    doNothing().when(owner).setCity(Mockito.<String>any());
-    doNothing().when(owner).setTelephone(Mockito.<String>any());
-    owner.setAddress("42 Main St");
-    owner.setCity("Oxford");
-    owner.setFirstName("Jane");
-    owner.setId(1);
-    owner.setLastName("Doe");
-    owner.setTelephone("6625550144");
-    when(ownerRepository.findById(Mockito.<Integer>any())).thenReturn(owner);
-    HashMap<String, Object> model = new HashMap<>();
+	@Autowired
+	private VisitController visitController;
 
-    // Act
-    visitController.loadPetWithVisit(1, 1, model);
+	/**
+	 * Method under test: {@link VisitController#loadPetWithVisit(int, int, Map)}
+	 */
+	@Test
+	void testLoadPetWithVisit() {
+		// Arrange
+		PetType type = new PetType();
+		type.setId(1);
+		type.setName("Dog");
 
-    // Assert
-    verify(owner).setId(Mockito.<Integer>any());
-    verify(owner).setFirstName(Mockito.<String>any());
-    verify(owner).setLastName(Mockito.<String>any());
-    verify(owner).getPet(Mockito.<Integer>any());
-    verify(owner).setAddress(Mockito.<String>any());
-    verify(owner).setCity(Mockito.<String>any());
-    verify(owner).setTelephone(Mockito.<String>any());
-    verify(ownerRepository).findById(Mockito.<Integer>any());
-    assertEquals(2, model.size());
-    assertEquals(1, ((Pet) model.get("pet")).getVisits().size());
-  }
+		Pet pet = new Pet();
+		pet.setBirthDate(LocalDate.of(1970, 1, 1));
+		pet.setId(1);
+		pet.setName("Bella");
+		pet.setType(type);
+		Owner owner = mock(Owner.class);
+		when(owner.getPet(Mockito.<Integer>any())).thenReturn(pet);
+		doNothing().when(owner).setId(Mockito.<Integer>any());
+		doNothing().when(owner).setFirstName(Mockito.<String>any());
+		doNothing().when(owner).setLastName(Mockito.<String>any());
+		doNothing().when(owner).setAddress(Mockito.<String>any());
+		doNothing().when(owner).setCity(Mockito.<String>any());
+		doNothing().when(owner).setTelephone(Mockito.<String>any());
+		owner.setAddress("42 Main St");
+		owner.setCity("Oxford");
+		owner.setFirstName("Jane");
+		owner.setId(1);
+		owner.setLastName("Doe");
+		owner.setTelephone("6625550144");
+		when(ownerRepository.findById(Mockito.<Integer>any())).thenReturn(owner);
+		HashMap<String, Object> model = new HashMap<>();
 
-  /**
-   * Method under test: {@link VisitController#initNewVisitForm()}
-   */
-  @Test
-  void testInitNewVisitForm() throws Exception {
-    // Arrange
-    Owner owner = new Owner();
-    owner.setAddress("42 Main St");
-    owner.setCity("Oxford");
-    owner.setFirstName("Jane");
-    owner.setId(1);
-    owner.setLastName("Doe");
-    owner.setTelephone("6625550144");
-    when(ownerRepository.findById(Mockito.<Integer>any())).thenReturn(owner);
-    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-        .get("/owners/{ownerId}/pets/{petId}/visits/new", "Uri Variables", "Uri Variables", "Uri Variables");
+		// Act
+		visitController.loadPetWithVisit(1, 1, model);
 
-    // Act
-    ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(visitController)
-        .build()
-        .perform(requestBuilder);
+		// Assert
+		verify(owner).setId(Mockito.<Integer>any());
+		verify(owner).setFirstName(Mockito.<String>any());
+		verify(owner).setLastName(Mockito.<String>any());
+		verify(owner).getPet(Mockito.<Integer>any());
+		verify(owner).setAddress(Mockito.<String>any());
+		verify(owner).setCity(Mockito.<String>any());
+		verify(owner).setTelephone(Mockito.<String>any());
+		verify(ownerRepository).findById(Mockito.<Integer>any());
+		assertEquals(2, model.size());
+		assertEquals(1, ((Pet) model.get("pet")).getVisits().size());
+	}
 
-    // Assert
-    actualPerformResult.andExpect(MockMvcResultMatchers.status().is(400));
-  }
+	/**
+	 * Method under test: {@link VisitController#initNewVisitForm()}
+	 */
+	@Test
+	void testInitNewVisitForm() throws Exception {
+		// Arrange
+		Owner owner = new Owner();
+		owner.setAddress("42 Main St");
+		owner.setCity("Oxford");
+		owner.setFirstName("Jane");
+		owner.setId(1);
+		owner.setLastName("Doe");
+		owner.setTelephone("6625550144");
+		when(ownerRepository.findById(Mockito.<Integer>any())).thenReturn(owner);
+		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+			.get("/owners/{ownerId}/pets/{petId}/visits/new", "Uri Variables", "Uri Variables", "Uri Variables");
 
-  /**
-   * Method under test:
-   * {@link VisitController#processNewVisitForm(Owner, int, Visit, BindingResult, RedirectAttributes)}
-   */
-  @Test
-  void testProcessNewVisitForm() throws Exception {
-    // Arrange
-    Owner owner = new Owner();
-    owner.setAddress("42 Main St");
-    owner.setCity("Oxford");
-    owner.setFirstName("Jane");
-    owner.setId(1);
-    owner.setLastName("Doe");
-    owner.setTelephone("6625550144");
-    when(ownerRepository.findById(Mockito.<Integer>any())).thenReturn(owner);
-    MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
-        .post("/owners/{ownerId}/pets/{petId}/visits/new", "Uri Variables", "Uri Variables", "Uri Variables");
+		// Act
+		ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(visitController)
+			.build()
+			.perform(requestBuilder);
 
-    // Act
-    ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(visitController)
-        .build()
-        .perform(requestBuilder);
+		// Assert
+		actualPerformResult.andExpect(MockMvcResultMatchers.status().is(400));
+	}
 
-    // Assert
-    actualPerformResult.andExpect(MockMvcResultMatchers.status().is(400));
-  }
+	/**
+	 * Method under test:
+	 * {@link VisitController#processNewVisitForm(Owner, int, Visit, BindingResult, RedirectAttributes)}
+	 */
+	@Test
+	void testProcessNewVisitForm() throws Exception {
+		// Arrange
+		Owner owner = new Owner();
+		owner.setAddress("42 Main St");
+		owner.setCity("Oxford");
+		owner.setFirstName("Jane");
+		owner.setId(1);
+		owner.setLastName("Doe");
+		owner.setTelephone("6625550144");
+		when(ownerRepository.findById(Mockito.<Integer>any())).thenReturn(owner);
+		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders
+			.post("/owners/{ownerId}/pets/{petId}/visits/new", "Uri Variables", "Uri Variables", "Uri Variables");
+
+		// Act
+		ResultActions actualPerformResult = MockMvcBuilders.standaloneSetup(visitController)
+			.build()
+			.perform(requestBuilder);
+
+		// Assert
+		actualPerformResult.andExpect(MockMvcResultMatchers.status().is(400));
+	}
+
 }
