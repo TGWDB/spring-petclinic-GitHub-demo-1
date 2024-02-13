@@ -10,20 +10,23 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ContextConfiguration;
 
-@ContextConfiguration(classes = {VetRepository.class})
+@ContextConfiguration(classes = { VetRepository.class })
 @EnableAutoConfiguration
-@EntityScan(basePackages = {"org.springframework.samples.petclinic.vet"})
+@EntityScan(basePackages = { "org.springframework.samples.petclinic.vet" })
 @DataJpaTest
 class VetRepositoryDiffblueTest {
-  @Autowired
-  private VetRepository vetRepository;
-  /**
-   * Method under test: {@link VetRepository#findAll()}
-   */
-  @Test
-  void testFindAll() throws DataAccessException {
-    // Arrange, Act and Assert
-    assertEquals(6, vetRepository.findAll().size());
-    assertEquals(6, vetRepository.findAll(Pageable.unpaged()).toList().size());
-  }
+
+	@Autowired
+	private VetRepository vetRepository;
+
+	/**
+	 * Method under test: {@link VetRepository#findAll()}
+	 */
+	@Test
+	void testFindAll() throws DataAccessException {
+		// Arrange, Act and Assert
+		assertEquals(6, vetRepository.findAll().size());
+		assertEquals(6, vetRepository.findAll(Pageable.unpaged()).toList().size());
+	}
+
 }
