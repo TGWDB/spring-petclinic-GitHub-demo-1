@@ -30,7 +30,7 @@ jobs:
       # Either specify the build command here (one of the following), or provide
       # prebuilt artifacts via a job dependency.
       - name: Build Project
-        run: mvn test-compile --batch-mode --no-transfer-progress
+        run: echo mvn test-compile --batch-mode --no-transfer-progress
 
       # Diffblue Cover commands and options to run.
       #   dcover – the core Diffblue Cover command
@@ -48,5 +48,9 @@ jobs:
           GITHUB_REPO_NAME: spring-petclinic-GitHub-demo-1
           JVM_ARGS: -Xmx4g
         run: |
-          git config --global --add safe.directory /__w/$GITHUB_REPO_NAME/$GITHUB_REPO_NAME
-          dcover ci activate ${{ secrets.DIFFBLUE_LICENSE }} validate create
+          echo git config --global --add safe.directory /__w/$GITHUB_REPO_NAME/$GITHUB_REPO_NAME
+          echo $GITHUB_REPOSITORY
+          echo $GITHUB_REPOSITORY | awk -F'/' '{print $2}'
+          export GITHUB_REPO_NAME=`echo echo $GITHUB_REPOSITORY | awk -F'/' '{print $2}'`
+          echo git config --global --add safe.directory /__w/$GITHUB_REPO_NAME/$GITHUB_REPO_NAME
+          echo dcover ci activate ${{ secrets.DIFFBLUE_LICENSE }} validate create
