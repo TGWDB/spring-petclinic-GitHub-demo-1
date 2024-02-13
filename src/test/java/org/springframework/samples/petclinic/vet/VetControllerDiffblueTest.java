@@ -17,15 +17,17 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
-@ContextConfiguration(classes = {VetController.class})
+@ContextConfiguration(classes = { VetController.class })
 @ExtendWith(SpringExtension.class)
 class VetControllerDiffblueTest {
-  @Autowired
-  private VetController vetController;
 
-  @MockBean
-  private VetRepository vetRepository;
-  /**
+	@Autowired
+	private VetController vetController;
+
+	@MockBean
+	private VetRepository vetRepository;
+
+	/**
    * Method under test: {@link VetController#showResourcesVetList()}
    */
   @Test
@@ -44,7 +46,7 @@ class VetControllerDiffblueTest {
             .string("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><vets/>"));
   }
 
-  /**
+	/**
    * Method under test: {@link VetController#showResourcesVetList()}
    */
   @Test
@@ -64,7 +66,7 @@ class VetControllerDiffblueTest {
             .string("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?><vets/>"));
   }
 
-  /**
+	/**
    * Method under test: {@link VetController#showVetList(int, Model)}
    */
   @Test
@@ -84,4 +86,5 @@ class VetControllerDiffblueTest {
         .andExpect(MockMvcResultMatchers.view().name("vets/vetList"))
         .andExpect(MockMvcResultMatchers.forwardedUrl("vets/vetList"));
   }
+
 }
